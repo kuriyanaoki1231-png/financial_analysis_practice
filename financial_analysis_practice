@@ -1,0 +1,23 @@
+# 必要なライブラリをインストール（Colabなら最初から入っていることが多いですが念のため）
+!pip install pandas-datareader yfinance matplotlib
+
+import pandas as pd
+import yfinance as yf
+import matplotlib.pyplot as plt
+
+# 1. データの取得（日経平均のティッカーシンボルは ^N225）
+# 期間：2020年から今日まで
+df = yf.download("^N225", start="2020-01-01")
+
+# 2. データの中身をちょっと見る（これ重要！）
+print(df.head())
+
+# 3. グラフを描く
+plt.figure(figsize=(12, 6))
+plt.plot(df.index, df['Close'], label='Nikkei 225')
+plt.title('Nikkei 225 Stock Price (2020-Now)')
+plt.xlabel('Date')
+plt.ylabel('Price (JPY)')
+plt.legend()
+plt.grid(True)
+plt.show()
